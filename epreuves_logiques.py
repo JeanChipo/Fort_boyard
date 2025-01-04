@@ -16,7 +16,7 @@ def joueur_retrait(n: int) -> int:
     :return: le nouveau nombre de batonnets restant
     """
     while True:
-        nb_bat = input("Combien de bâtonnets voulez-vous retirer (1, 2 ou 3) ?")
+        nb_bat = input("Combien de bâtonnets voulez-vous retirer (1, 2 ou 3) ? \n> ")
         if (len(nb_bat) == 1) and ('1' <= nb_bat <= '3') and (int(nb_bat) <= n):
             break  # réponse valide
         else:  # réponse non valide
@@ -40,11 +40,13 @@ def maitre_retrait(n: int) -> int:
     return nb_retire
 
 
-def jeu_nim() -> bool:
+def jeu_nim(nom_joueur:str) -> bool:
     """
     jeu du NIM :
     Le joueur et le maître du jeu (IA) retirent à tour de rôle 1, 2 ou 3 bâtonnets d'un total de 20.
     Celui qui retire le dernier bâtonnet perd la partie.
+    :param nom_joueur: le nom du joueur
+    :return: True si le joueur gagne, False sinon
     """
     nb_batonnet = 20
     tour_du_joueur = choice([True, False])
@@ -60,10 +62,10 @@ def jeu_nim() -> bool:
             nb_batonnet -= x
             tour_du_joueur = True
     if not tour_du_joueur:
-        print("Le joueur a retiré le dernier bâtonnet. Le maître gagne !")
-        return True
-    print("Le maître a retiré le dernier bâtonnet. Le joueur gagne !")
-    return False
+        print(f"{nom_joueur} a retiré le dernier bâtonnet. Le maître gagne !")
+        return False
+    print(f"Le maître a retiré le dernier bâtonnet. {nom_joueur} gagne !")
+    return True
 
 #########################
 ## Épreuve du morpion  ##
@@ -659,8 +661,8 @@ def la_vraie_bataille_navale(joueur: str) -> bool:
                 return False  # le joueur a perdu, fin du jeu
 
 
-def epreuve_logique(joueur) -> None:
+def epreuve_logique(joueur)->bool:
     """ Execute une fonction aléatoire du module epreuves_logiques """
     epreuves = [jeu_nim, tictactoe, la_vraie_bataille_navale]
     epreuve = epreuves[randint(0, 1)]
-    epreuve(joueur)
+    return epreuve(joueur)

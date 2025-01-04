@@ -81,10 +81,10 @@ def menu_epreuves()->None | bool:
         "2. Épreuve de Logique \n"
         "3. Épreuve du hasard \n"
         "4. Énigme du Père Fouras \n")
-    choix = int(input("Choix : "))
-    while not 1 <= choix <= 4:
-        choix = int(input("Merci de choisir un entier entre 1 et 4 : "))
-    match choix:
+    choix = input("Choix : ")
+    while not '1' <= choix <= '4':
+        choix = input("Merci de choisir un entier entre 1 et 4 : ")
+    match int(choix):
         case 1: return epreuve_math()
         case 2: return epreuve_logique(joueur="Joueur 1")
         case 3: return epreuve_hasard()
@@ -103,3 +103,6 @@ def choisir_joueur(equipe)->dict:
     while not 1 <= n <= len(equipe):
         n = int(input(f"Merci de saisir un entier entre 1 et {len(equipe)} : "))
     return equipe[n-1]
+
+while True:
+    print(menu_epreuves())

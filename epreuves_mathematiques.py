@@ -181,8 +181,8 @@ def roulette_mathematique()->bool:
 ## Fonction epreuve math (selection d'une épreuve)  ##
 ######################################################
 
-def epreuve_math()->None:
+def epreuve_math()->bool:
     """ Execute une fonction aléatoire du module epreuves_mathematiques """
     epreuves = [epreuve_math_factorielle, epreuve_math_equation, epreuve_math_premier, roulette_mathematique]
     epreuve = epreuves[randint(0,3)]
-    epreuve()
+    return epreuve()
