@@ -5,7 +5,7 @@ def salle_de_tresor() -> bool: # épreuve de la salle du trésor
     """
     :return: True si le joueur gagne, False sinon
     """
-    with open(./data/indicesSalle.json, 'r', encoding='utf-8') as file:  # récupère le dictionnaire qui est dans le fichier JSON
+    with open("./data/indicesSalle.json", 'r', encoding='utf-8') as file:  # récupère le dictionnaire qui est dans le fichier JSON
         dico_fichier = json.load(file)
 
     jeu_tv = dico_fichier["Fort Boyard"]
