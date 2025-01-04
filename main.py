@@ -9,6 +9,7 @@ from enigme_pere_fouras import enigme_pere_fouras
 ################
 
 def jeu():
+    """ Fonction principale d'execution du jeu de fort boyard """
     introduction() # affichage des instruction
     liste_joueurs = composer_equipe() # composition des équipes
     cle_gagnee = 0
@@ -39,10 +40,11 @@ def jeu():
         else:
             print(f"Vous n'avez pas gagné l'épreuve, vous en posséder donc {cle_gagnee}.\n")
         enregistrer_historique(nom_epreuve, joueur["nom"], reussite)
-
+    print("Vous possédez 3 clés, la salle au trésor s'ouvre.")
     nom_equipe = ""
-    for i in range(len(liste_joueurs)):
-        nom_equipe += liste_joueurs[i]["nom"]
+    for i in range(len(liste_joueurs)-1):
+        nom_equipe += liste_joueurs[i]["nom"] + ', '
+    nom_equipe += liste_joueurs[-1]["nom"]
 
     if salle_de_tresor() == True:
         print("\nFélicitation, vous avez gagné le jeu du Fort Boyard edition python !")
@@ -50,5 +52,6 @@ def jeu():
     else:
         print("\nQuel dommage, vous avez perdu le jeu du Fort Boyard edition python... \nLa prochaine sera la bonne !")
         enregistrer_historique("salle_de_trésor", f"équipe de {nom_equipe}", False)
+    sauter_ligne_historique()
 
-jeu()
+#jeu()

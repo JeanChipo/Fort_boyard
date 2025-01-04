@@ -24,7 +24,7 @@ def salle_de_tresor() -> bool: # épreuve de la salle du trésor
 
         if reponse.lower() == mot_code.lower():  # si le mot est le même que celui à trouver, on dit que le joueur a gagné et on arrête le jeu
             win = True
-            print("Félicitations, vous avez trouvé le bon mot !")
+            print("Bien joué, vous avez trouvé le bon mot !")
             break
         elif i != 2:  # sinon, on affiche que le joueur n'a pas trouvé le bon mot et on lui dit combien de tentatives il lui reste
             print(f"Mauvaise réponse\nIl vous reste {2 - i} tentative(s).")

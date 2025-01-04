@@ -1,4 +1,6 @@
 from random import choice, randint
+from string import printable
+
 
 #####################
 ## Épreuve du NIM  ##
@@ -46,6 +48,8 @@ def jeu_nim() -> bool:
     Celui qui retire le dernier bâtonnet perd la partie.
     :return: True si le joueur gagne, False sinon
     """
+    print("Le joueur et le maître du jeu (IA) retirent à tour de rôle 1, 2 ou 3 bâtonnets d'un total de 20." +
+          "Celui qui retire le dernier bâtonnet perd la partie.")
     nb_batonnet = 20
     tour_du_joueur = choice([True, False])
     while nb_batonnet != 0:
@@ -95,7 +99,7 @@ def saisie_joueur_morpion() -> tuple:
     return coordoneeX, coordoneeY
 
 
-def est_saisie_valide(saisie_j: tuple, plateau: list, player: int) -> bool:
+def est_saisie_valide(saisie_j, plateau: list, player: int) -> bool:
     """
     fonction qui vérifie si il n'y a rien sur la case jouée par l'utilisateur et donc si la saisie et correcte
     :param saisie_j: la saisie du joueur sous forme de tuple (X, Y)
@@ -127,7 +131,7 @@ def action(plateau: list, player: int) -> list:
             plateau[saisie_j[0]][saisie_j[1]] = "X"
 
     else:  # c'est au tour du maître : il joue avec 75% de chance de faire la saisie la plus optimale.
-        for j in ["O", "X"]:  # vérifie s'il peut gagner puis vérifie s'il doit défendre.
+        for j in ["X", "O"]:  # vérifie s'il peut gagner puis vérifie s'il doit défendre.
             # vérification des diagonnales
             if (plateau[0][0] == plateau[1][1] == j and plateau[2][2] == ".") and randint(1, 100) <= 75:
                 saisie_j = [2, 2]
@@ -267,7 +271,7 @@ def saisie_joueur_bataille(plateau_joueur: list, player: int) -> list:
             "   X   │   #   │       │       │       \n"
             "   X   │   #   │       │       │       \n"
         )
-
+    afficher_plateau(plateau_joueur, 0) # on affiche le tableau du joueur vide au début de la partie pour qu'il sache comment sont placés les bateaux
     for i in range(1, 6):
         match i:
             case 1: long_bateau = 5
@@ -333,14 +337,14 @@ def saisie(i: int) -> list:
     :return: La coordonnée du joueur pour placer son bateau sous forme de liste
     """
     while True:  # vérification si le caractère est bien un caractère qui peut etre transformer en entier et qui est compris entre 1 et 10
-        coordoneeX = input("Veuillez saisir la ligne dans laquelle vous voulez mettre l'arrière de votre bateau {i} : ")
+        coordoneeX = input(f"Veuillez saisir la ligne dans laquelle vous voulez mettre l'arrière de votre bateau {i} : ")
         if (len(coordoneeX) == 1 and '1' <= coordoneeX <= '9') or coordoneeX == "10":
             coordoneeX = int(coordoneeX) - 1
             break
         else:
             print("Merci de saisir un entier compris entre 1 et 10 inclus")
     while True:  # vérification si le caractère est bien un caractère qui peut être transformer en entier et qui est compris entre 1 et 10
-        coordoneeY = input("Veuillez saisir la colonne dans laquelle vous voulez mettre l'arrière de votre bateau {i} : ")
+        coordoneeY = input(f"Veuillez saisir la colonne dans laquelle vous voulez mettre l'arrière de votre bateau {i} : ")
         if (len(coordoneeY) == 1 and '1' <= coordoneeY <= '9') or coordoneeY == "10":
             coordoneeY = int(coordoneeY) - 1
             break
@@ -607,15 +611,16 @@ def la_vraie_bataille_navale() -> bool:
     print(
         "┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐\n" +
         "│Instructions:                                                                                                         │\n" +
-        "│   Le joueur place cinq bateaux sur une grille et tente de deviner la position des cinq bateaux                      │\n" +
+        "│   Le joueur place cinq bateaux sur une grille et tente de deviner la position des cinq bateaux                       │\n" +
         "│   de son adversaire (le maître du jeu). Le gagnant est celui qui réussit à toucher tous les bateaux adverses.        │\n" +
         "│   Chaque joueur dispose de deux grilles : une pour la position de ses bateaux et une autre pour enregistrer ses tirs.│\n" +
         "│   Le jeu alterne les tours entre les joueurs, chacun cherchant à toucher les bateaux de l'autre.                     │\n" +
         "│   Le jeu se termine lorsque les deux bateaux d'un joueur sont coulés                                                 │\n" +
         "│                                                                                                                      │\n" +
         "│Symboles:                                                                                                             │\n" +
-        "│   - O, Y, §, X : Bateaux du joueur 1 sur le tableau de droite.                                                       │\n" +
+        "│   - O, Y, §, X, # : Bateaux du joueur 1 sur le tableau de droite.                                                    │\n" +
         "│   - ● : Tir touché sur plateau du maître du jeu (celui de gauche).                                                   │\n" +
+        "│   - ■ : Tir du maitre sur plateau du joueur (celui de droite).                                                       │\n" +
         "│   - · : Tir manqué sur plateau du maître du jeu (celui de gauche).                                                   │\n" +
         "│   - ~ : L'eau.                                                                                                       │\n" +
         "└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘\n"
@@ -652,5 +657,5 @@ def la_vraie_bataille_navale() -> bool:
 def epreuve_logique()->bool:
     """ Execute une fonction aléatoire du module epreuves_logiques """
     epreuves = [jeu_nim, tictactoe, la_vraie_bataille_navale]
-    epreuve = epreuves[randint(0, 1)]
+    epreuve = epreuves[randint(0, 2)]
     return epreuve()

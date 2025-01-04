@@ -38,7 +38,7 @@ def composer_equipe()->list[dict]:
     :return: une liste de dictionnaire contenant le nom, la profession, si le joueur est le leader de l'équipe, et le nombre de clé qu'il a gagné
     """
     liste_joueurs = []
-    n = input("Combien de joueurs se joindrons à l'aventure ? (PS: le bateau ne peut accueillir que 3 joueurs max) : ")
+    n = input("Combien de joueurs se joindront à l'aventure ? (PS: le bateau ne peut accueillir que 3 joueurs max) : ")
     while not '1' <= n <= '3':  # On ne convertit pas encore n en entier, car si l'utilisateur fait un retour à la ligne il y a une erreur
         n = input("Le bateau doit transporter entre 1 et 3 joueurs. \n"
                   "Merci de saisir un nombre de joueur valide : ")
@@ -84,7 +84,7 @@ def menu_epreuves():
         "2. Épreuve de Logique \n"
         "3. Épreuve du hasard \n"
         "4. Énigme du Père Fouras \n")
-    choix = input("A quel épreuve voulez-vous jouer ? : ")
+    choix = input("A quelle épreuve voulez-vous jouer ? : ")
     while not '1' <= choix <= '4':
         choix = input("Merci de choisir un entier entre 1 et 4 : ")
     print()
@@ -126,3 +126,10 @@ def enregistrer_historique(nom_epreuve:str, nom_joueur:str, resultat:bool)->None
     enregistrement = {"nom_epreuve":nom_epreuve, "nom_joueur":nom_joueur, "resultat":resultat}
     with open("./output/historique.txt", 'a', encoding="utf-8") as historique:
         historique.write(str(enregistrement) + '\n')
+
+def sauter_ligne_historique()->None:
+    """ Saute une ligne dans l'historique pour differencier les parties """
+    with open("./output/historique.txt", 'a', encoding="utf-8") as historique:
+        historique.write('\n')
+
+sauter_ligne_historique()
