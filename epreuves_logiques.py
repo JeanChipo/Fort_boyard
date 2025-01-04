@@ -1,6 +1,5 @@
 from random import choice, randint
 
-
 #####################
 ## Épreuve du NIM  ##
 #####################
@@ -65,6 +64,8 @@ def jeu_nim() -> bool:
         return False
     print("Le maître a retiré le dernier bâtonnet. Le joueur gagne !")
     return True
+
+
 
 #########################
 ## Épreuve du morpion  ##
@@ -241,6 +242,7 @@ def tictactoe() -> bool:
                 print("──┼───┼──")
         print("egalité, pour déterminer le gagnant, une autre partie doit être jouée")
         tictactoe()
+
 
 
 ####################################
@@ -652,5 +654,3 @@ def epreuve_logique()->bool:
     epreuves = [jeu_nim, tictactoe, la_vraie_bataille_navale]
     epreuve = epreuves[randint(0, 1)]
     return epreuve()
-
-tictactoe()

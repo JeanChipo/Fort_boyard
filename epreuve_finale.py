@@ -20,7 +20,7 @@ def salle_de_tresor() -> bool: # épreuve de la salle du trésor
     print(f"Les trois indices sont :\n{indices[0]}\n{indices[1]}\n{indices[2]}")
 
     for i in range(3):  # boucle des trois tentatives
-        reponse = input("Entrez le mot-code qui correspond aux indices (sans accent si le mot en comporte) : ")  # demande à l'utilisateur sa réponse
+        reponse = input("Entrez le mot-code qui correspond aux indices : ")  # demande à l'utilisateur sa réponse
 
         if reponse.lower() == mot_code.lower():  # si le mot est le même que celui à trouver, on dit que le joueur a gagné et on arrête le jeu
             win = True

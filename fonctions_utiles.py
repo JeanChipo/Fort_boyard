@@ -1,7 +1,4 @@
-from epreuves_mathematiques import epreuve_math
-from epreuves_logiques import epreuve_logique
-from epreuves_hasard import epreuve_hasard
-from enigme_pere_fouras import enigme_pere_fouras
+
 
 ##########
 
@@ -77,7 +74,7 @@ def composer_equipe()->list[dict]:
 
     return liste_joueurs
 
-def menu_epreuves()->():
+def menu_epreuves():
     """
     affiche le menu des épreuves permettant à l'utilisateur de choisir parmi différents types d'épreuves disponibles
     :return: None si l'utilisateur choisi l'épreuve 1, 2 ou 3 / si il choisi l'énigme du père fouras, True si il répond correctement et False sinon
@@ -90,12 +87,8 @@ def menu_epreuves()->():
     choix = input("A quel épreuve voulez-vous jouer ? : ")
     while not '1' <= choix <= '4':
         choix = input("Merci de choisir un entier entre 1 et 4 : ")
-    print("")
-    match int(choix):
-        case 1: return epreuve_math()
-        case 2: return epreuve_logique()
-        case 3: return epreuve_hasard()
-        case 4: return enigme_pere_fouras()
+    print()
+    return int(choix)
 
 def choisir_joueur(equipe)->dict:
     """
@@ -131,5 +124,5 @@ def enregistrer_historique(nom_epreuve:str, nom_joueur:str, resultat:bool)->None
     :return: None
     """
     enregistrement = {"nom_epreuve":nom_epreuve, "nom_joueur":nom_joueur, "resultat":resultat}
-    with open("./output/historique.txt", 'a') as historique:
+    with open("./output/historique.txt", 'a', encoding="utf-8") as historique:
         historique.write(str(enregistrement) + '\n')
