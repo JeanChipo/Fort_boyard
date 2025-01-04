@@ -49,10 +49,16 @@ def composer_equipe()->list[dict]:
     leader_present = False
     for i in range(int(n)):
         print(f"Joueur n°{i+1}, nous avons besoin de quelques informations sur vous.")
-        nom = input("Quel est votre nom ? \n>")
-        profession = input("Quel est votre profession ? \n>")
+        nom = input("Quel est votre nom ? \n> ")
+        while len(nom) == 0:
+            nom = input("Vous n'avez pas de nom ? \n> ")
+
+        profession = input("Quel est votre profession ? \n> ")
+        while len(profession) == 0:
+            profession = input("Vous faites forcement quelque chose dans la vie ! \n> ")
+
         if not leader_present :
-            leader = input("Etes-vous le leader de l'équipe (V/F) ? \n>")
+            leader = input("Etes-vous le leader de l'équipe (V/F) ? \n> ")
             while leader != "V" and leader != "F":
                 leader = input("Merci de saisir 'V' ou 'F' : ")
             match leader:
@@ -81,14 +87,15 @@ def menu_epreuves()->():
         "2. Épreuve de Logique \n"
         "3. Épreuve du hasard \n"
         "4. Énigme du Père Fouras \n")
-    choix = input("Choix : ")
+    choix = input("A quel épreuve voulez-vous jouer ? : ")
     while not '1' <= choix <= '4':
         choix = input("Merci de choisir un entier entre 1 et 4 : ")
+    print("")
     match int(choix):
-        case 1: return epreuve_math
-        case 2: return epreuve_logique
-        case 3: return epreuve_hasard
-        case 4: return enigme_pere_fouras
+        case 1: return epreuve_math()
+        case 2: return epreuve_logique()
+        case 3: return epreuve_hasard()
+        case 4: return enigme_pere_fouras()
 
 def choisir_joueur(equipe)->dict:
     """

@@ -7,7 +7,7 @@ def bonneteau():
     :return: booléen, True si le joueur a gagné, False sinon.
     """
     win = False # initialisation de la win à False car si le joueur ne gagne pas cette valeur ne sera pas modifiée
-    print("Dans ce jeu, vous aurez le choix entre 3 options (A, B, C). Il faudra que vous trouviez la bonne proposition. Vous n'aurez que 2 chances, et pour chaque tentative, le bon choix sera replacé aléatoirement.")
+    print("Dans ce jeu, vous aurez le choix entre 3 options (A, B, C). Il faudra que vous trouviez la bonne proposition. Vous n'aurez que 2 chances, et pour chaque tentative, le bon choix sera remplacé aléatoirement.")
 
     for i in range(2): # boucle du nombre de chances qu'a le joueur de gagner
         bonne_reponse = choice(["A", "B", "C"]) # choix aléatoire de la bonne réponse
@@ -54,6 +54,7 @@ def jeu_lance_des():
             if de == 6: # si le dé du maître tombe sur 6, la boucle s'arrête et le joueur a perdu
                 print("Vous avez perdu\n")
                 win = False
+                break
     if win == None: # si la valeur de win n'a pas changé, cela veut dire que personne n'a gagné et donc on relance le jeu
         print("Match nul\nLe jeu redémarre")
         return jeu_lance_des()

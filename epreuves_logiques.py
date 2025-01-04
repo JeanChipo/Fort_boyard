@@ -106,7 +106,8 @@ def est_saisie_valide(saisie_j: tuple, plateau: list, player: int) -> bool:
         if player == 1:
             print("Coup invalide")
         return False
-    return True
+    else:
+        return True
 
 
 def action(plateau: list, player: int) -> list:
@@ -128,41 +129,41 @@ def action(plateau: list, player: int) -> list:
         for j in ["O", "X"]:  # vérifie s'il peut gagner puis vérifie s'il doit défendre.
             # vérification des diagonnales
             if (plateau[0][0] == plateau[1][1] == j and plateau[2][2] == ".") and randint(1, 100) <= 75:
-                saisie_j = (2, 2)
+                saisie_j = [2, 2]
             elif (plateau[1][1] == plateau[2][2] == j and plateau[0][0] == ".") and randint(1, 100) <= 75:
-                saisie_j = (0, 0)
+                saisie_j = [0, 0]
             elif (plateau[0][0] == plateau[2][2] == j and plateau[1][1] == ".") and randint(1, 100) <= 75:
-                saisie_j = (1, 1)
+                saisie_j = [1, 1]
             elif (plateau[0][2] == plateau[1][1] == j and plateau[2][0] == ".") and randint(1, 100) <= 75:
-                saisie_j = (2, 0)
+                saisie_j = [2, 0]
             elif (plateau[2][0] == plateau[1][1] == j and plateau[0][2] == ".") and randint(1, 100) <= 75:
-                saisie_j = (0, 2)
-            elif (plateau[0][2] == plateau[1][1] == j and plateau[1][1] == ".") and randint(1, 100) <= 75:
-                saisie_j = (1, 1)
+                saisie_j = [0, 2]
+            elif (plateau[0][2] == plateau[2][0] == j and plateau[1][1] == ".") and randint(1, 100) <= 75:
+                saisie_j = [1, 1]
             else:
                 s = 0
                 for i in range(3):  # vérification des lignes et des colonnes
                     if plateau[i][0] == plateau[i][1] == j and plateau[i][2] == "." and s == 0 and randint(1,100) <= 75:
                         s = 1
-                        saisie_j = (i, 2)
+                        saisie_j = [i, 2]
                     elif plateau[i][0] == plateau[i][2] == j and plateau[i][1] == "." and s == 0 and randint(1,100) <= 75:
                         s = 1
-                        saisie_j = (i, 1)
+                        saisie_j = [i, 1]
                     elif plateau[i][2] == plateau[i][1] == j and plateau[i][0] == "." and s == 0 and randint(1,100) <= 75:
                         s = 1
-                        saisie_j = (i, 0)
+                        saisie_j = [i, 0]
 
                     elif plateau[0][i] == plateau[1][i] == j and plateau[2][i] == "." and s == 0 and randint(1,100) <= 75:
                         s = 1
-                        saisie_j = (2, i)
+                        saisie_j = [2, i]
                     elif plateau[0][i] == plateau[2][i] == j and plateau[1][i] == "." and s == 0 and randint(1,100) <= 75:
                         s = 1
-                        saisie_j = (1, i)
+                        saisie_j = [1, i]
                     elif plateau[1][i] == plateau[2][i] == j and plateau[0][i] == "." and s == 0 and randint(1,100) <= 75:
                         s = 1
-                        saisie_j = (0, i)
+                        saisie_j = [0, i]
                     elif s == 0 and i == 2:  # si aucun choix optimale n'est trouvé, le maître jouera à un endroit aléatoire
-                        saisie_j = (choice([0, 2]), choice([0, 2]))
+                        saisie_j = [choice([0, 1, 2]), choice([0, 1, 2])]
 
         if not est_saisie_valide(saisie_j, plateau, player):  # vérifie si la saisie du maître est correcte
             action(plateau, player)
@@ -652,4 +653,4 @@ def epreuve_logique()->bool:
     epreuve = epreuves[randint(0, 1)]
     return epreuve()
 
-epreuve_logique()
+tictactoe()
