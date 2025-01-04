@@ -1,3 +1,7 @@
+#pyfort-Lefevre-RoyNoughier-C
+#JeanChipo & WarrenOne
+#Ce fichier présente l'implémentation des épreuves de hasard
+
 from random import choice, randint
 
 def bonneteau():

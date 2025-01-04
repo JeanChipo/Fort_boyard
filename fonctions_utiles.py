@@ -1,6 +1,6 @@
-
-
-##########
+#pyfort-Lefevre-RoyNoughier-C
+#JeanChipo & WarrenOne
+#Ce fichier présente l'implémentation des fonctions utiles qui gèrent les joueurs, les épreuves, et l'enregistrement des résultats du jeu
 
 def bold(text:str)->str:
     return "\033[1m" + text + "\033[0m"

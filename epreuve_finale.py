@@ -1,3 +1,7 @@
+#pyfort-Lefevre-RoyNoughier-C
+#JeanChipo & WarrenOne
+#Ce fichier présente l'implémentation de l'epreuve finale
+
 import json
 from random import choice
 

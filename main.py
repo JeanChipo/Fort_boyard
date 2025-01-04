@@ -1,3 +1,7 @@
+#pyfort-Lefevre-RoyNoughier-C
+#JeanChipo & WarrenOne
+#Ce fichier présente l'implémentation de la fonction principale regroupant tout les modules
+
 from fonctions_utiles import *
 from epreuve_finale import salle_de_tresor
 
@@ -54,4 +58,4 @@ def jeu():
         enregistrer_historique("salle_de_trésor", f"équipe de {nom_equipe}", False)
     sauter_ligne_historique()
 
-#jeu()
+jeu()

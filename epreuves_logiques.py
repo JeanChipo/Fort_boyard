@@ -1,6 +1,8 @@
-from random import choice, randint
-from string import printable
+#pyfort-Lefevre-RoyNoughier-C
+#JeanChipo & WarrenOne
+#Ce fichier présente l'implémentation des épreuves logiques
 
+from random import choice, randint
 
 #####################
 ## Épreuve du NIM  ##

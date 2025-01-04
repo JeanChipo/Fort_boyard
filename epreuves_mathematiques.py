@@ -1,3 +1,7 @@
+#pyfort-Lefevre-RoyNoughier-C
+#JeanChipo & WarrenOne
+#Ce fichier présente l'implémentation des épreuves mathématiques
+
 from random import randint, choice
 
 ################################
@@ -148,30 +152,30 @@ def roulette_mathematique()->bool:
 
     match op:
         case '+':
-            result = 0
+            resultat = 0
             for n in nombres:
-                result += n
+                resultat += n
             print("Donnez le résultat de l'addition de tout les nombres entre eux.\n"+
                   "Exemple : [1,2,3] = 1 + 2 + 3 = 6")
         case '-':
-            result = nombres[0]
+            resultat = nombres[0]
             for n in nombres[1:]:
-                result -= n
+                resultat -= n
             print("Donnez le résultat de la soustraction de tout les nombres entre eux.\n"+
                   "Exemple : [1,2,3] = 1 - 2 - 3 = -4")
         case '*':
-            result = 1
+            resultat = 1
             for n in nombres:
-                result *= n
+                resultat *= n
             print("Donnez le résultat de la multiplication de tout les nombres entre eux.\n"+
                   "Exemple : [1,2,3] = 1 * 2 * 3 = 6")
         case _:
-            result = -1
+            resultat = -1
 
     reponse = input("Votre réponse : ")
     while not est_entier(reponse):
         reponse = input("Merci de saisir un entier : ")
-    if int(reponse) == result:
+    if int(reponse) == resultat:
         print("Correct! Vous gagnez une clé.")
         return True
     print("Faux! Vous perdez la clé.")
