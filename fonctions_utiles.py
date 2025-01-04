@@ -117,3 +117,19 @@ def choisir_joueur(equipe)->dict:
     while not '1' <= n <= str(len(equipe)):
         n = input(f"Merci de saisir un entier entre 1 et {len(equipe)} : ")
     return equipe[int(n)-1]
+
+################
+## Historique ##
+################
+
+def enregistrer_historique(nom_epreuve:str, nom_joueur:str, resultat:bool)->None:
+    """
+    Fonction servant à enregistrer un historique
+    :param nom_epreuve: Le nom de l'épreuve
+    :param nom_joueur: Le nom du joueur
+    :param resultat: Le resultat - True si le joueur gagne, False sinon
+    :return: None
+    """
+    enregistrement = {"nom_epreuve":nom_epreuve, "nom_joueur":nom_joueur, "resultat":resultat}
+    with open("./output/historique.txt", 'a') as historique:
+        historique.write(str(enregistrement) + '\n')
