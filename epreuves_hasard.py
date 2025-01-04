@@ -36,7 +36,7 @@ def jeu_lance_des():
     Jeu qui consiste à lancer un dé, et le premier à tomber sur 6 gagne.
     :return: booléen, True si le joueur gagne, False s'il perd.
     """
-
+    print("Lancé de dé : ce jeu consiste à lancer un dé, et le premier à tomber sur 6 gagne.")
     win = None
     for i in range(6): # nombre de tours pour le joueur et le maître
         de = randint(1, 6) # valeur du dé lancé
