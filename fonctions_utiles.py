@@ -41,13 +41,13 @@ def composer_equipe()->list[dict]:
     :return: une liste de dictionnaire contenant le nom, la profession, si le joueur est le leader de l'équipe, et le nombre de clé qu'il a gagné
     """
     liste_joueurs = []
-    n = int(input("Combien de joueurs se joindrons à l'aventure ? (PS: le bateau ne peut accueillir que 3 joueurs max) : "))
-    while not 1 <= n <= 3:
-        n = int(input("Le bateau doit transporter entre 1 et 3 joueurs. \n"
-                  "Merci de saisir un nombre de joueur valide : "))
+    n = input("Combien de joueurs se joindrons à l'aventure ? (PS: le bateau ne peut accueillir que 3 joueurs max) : ")
+    while not '1' <= n <= '3':  # On ne convertit pas encore n en entier, car si l'utilisateur fait un retour à la ligne il y a une erreur
+        n = input("Le bateau doit transporter entre 1 et 3 joueurs. \n"
+                  "Merci de saisir un nombre de joueur valide : ")
 
     leader_present = False
-    for i in range(n):
+    for i in range(int(n)):
         print(f"Joueur n°{i+1}, nous avons besoin de quelques informations sur vous.")
         nom = input("Quel est votre nom ? \n>")
         profession = input("Quel est votre profession ? \n>")
@@ -71,7 +71,7 @@ def composer_equipe()->list[dict]:
 
     return liste_joueurs
 
-def menu_epreuves()->None | bool:
+def menu_epreuves()->():
     """
     affiche le menu des épreuves permettant à l'utilisateur de choisir parmi différents types d'épreuves disponibles
     :return: None si l'utilisateur choisi l'épreuve 1, 2 ou 3 / si il choisi l'énigme du père fouras, True si il répond correctement et False sinon
@@ -85,10 +85,10 @@ def menu_epreuves()->None | bool:
     while not '1' <= choix <= '4':
         choix = input("Merci de choisir un entier entre 1 et 4 : ")
     match int(choix):
-        case 1: return epreuve_math()
-        case 2: return epreuve_logique(joueur="Joueur 1")
-        case 3: return epreuve_hasard()
-        case 4: return enigme_pere_fouras()
+        case 1: return epreuve_math
+        case 2: return epreuve_logique
+        case 3: return epreuve_hasard
+        case 4: return enigme_pere_fouras
 
 def choisir_joueur(equipe)->dict:
     """
@@ -97,12 +97,16 @@ def choisir_joueur(equipe)->dict:
     :return: un dictionnaire contenant le joueur choisi
     """
     for i in range(len(equipe)):
-        if equipe[i]["est_leader"]: print(f"{i+1}. {equipe[i]['nom']} ({equipe[i]['profession']}) - Leader")
-        else: print(f"{i+1}. {equipe[i]['nom']} ({equipe[i]['profession']}) - Membre")
-    n = int(input("Entrez le numéro du joueur: "))
-    while not 1 <= n <= len(equipe):
-        n = int(input(f"Merci de saisir un entier entre 1 et {len(equipe)} : "))
-    return equipe[n-1]
+        if equipe[i]["est_leader"]:
+            print(f"{i+1}. {equipe[i]['nom']} ({equipe[i]['profession']}) - Leader")
+        else:
+            print(f"{i+1}. {equipe[i]['nom']} ({equipe[i]['profession']}) - Membre")
 
-while True:
-    print(menu_epreuves())
+    if len(equipe) == 1:
+        print(f"L'équipe n'est composée que de {equipe[0]['nom']}, il doit donc participer à l'épreuve.")
+        return equipe[0]
+
+    n = input("Entrez le numéro du joueur: ")
+    while not '1' <= n <= str(len(equipe)):
+        n = input(f"Merci de saisir un entier entre 1 et {len(equipe)} : ")
+    return equipe[int(n)-1]

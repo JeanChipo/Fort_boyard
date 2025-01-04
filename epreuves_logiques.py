@@ -40,12 +40,11 @@ def maitre_retrait(n: int) -> int:
     return nb_retire
 
 
-def jeu_nim(nom_joueur:str) -> bool:
+def jeu_nim() -> bool:
     """
     jeu du NIM :
     Le joueur et le maître du jeu (IA) retirent à tour de rôle 1, 2 ou 3 bâtonnets d'un total de 20.
     Celui qui retire le dernier bâtonnet perd la partie.
-    :param nom_joueur: le nom du joueur
     :return: True si le joueur gagne, False sinon
     """
     nb_batonnet = 20
@@ -62,30 +61,29 @@ def jeu_nim(nom_joueur:str) -> bool:
             nb_batonnet -= x
             tour_du_joueur = True
     if not tour_du_joueur:
-        print(f"{nom_joueur} a retiré le dernier bâtonnet. Le maître gagne !")
+        print("Le joueur a retiré le dernier bâtonnet. Le maître gagne !")
         return False
-    print(f"Le maître a retiré le dernier bâtonnet. {nom_joueur} gagne !")
+    print("Le maître a retiré le dernier bâtonnet. Le joueur gagne !")
     return True
 
 #########################
 ## Épreuve du morpion  ##
 #########################
 
-def saisie_joueur_morpion(joueur: str) -> tuple:
+def saisie_joueur_morpion() -> tuple:
     """
     fonction qui demande et vérifie la saisie de l'utilisateur
-    :param joueur: nom du joueur à qui il faut jouer
     :return: tuple de coordonnées du coup joué par le joueur
     """
     while True:  # vérification que la coordonnée X soit valide
-        coordoneeX = input(f"{joueur}, veuillez saisir la ligne dans laquelle vous voulez jouer : ")
+        coordoneeX = input("Veuillez saisir la ligne dans laquelle vous voulez jouer : ")
         if len(coordoneeX) == 1 and '1' <= coordoneeX <= '3':
             break
         else:
             print("Merci de saisir un entier entre 1 et 3.")
 
     while True:  # vérification que la coordonnée Y soit valide
-        coordoneeY = input(f"{joueur}, veuillez saisir la colonne dans laquelle vous voulez jouer : ")
+        coordoneeY = input("Veuillez saisir la colonne dans laquelle vous voulez jouer : ")
         if len(coordoneeY) == 1 and '1' <= coordoneeY <= '3':
             break
         else:
@@ -111,19 +109,18 @@ def est_saisie_valide(saisie_j: tuple, plateau: list, player: int) -> bool:
     return True
 
 
-def action(plateau: list, player: int, joueur: str) -> list:
+def action(plateau: list, player: int) -> list:
     """
     Fonction qui appelle les fonctions précédentes et qui permet de placer les pions sur la grille pour le joueur.
     Permet aussi de donner une saisie au maître (qui est l'adversaire du joueur).
     :param player: Le joueur qui joue (1 pour le joueur humain et -1 pour l'ordinateur)
     :param plateau: Le plateau de jeu
-    :param joueur: Le nom du joueur
     :return: Le nouveau plateau de jeu actualisé
     """
     if player == 1:  # si c'est au tour de l'utilisateur, demande la saisie du joueur, la vérifie, et place le pion sur la grille si elle est correcte
-        saisie_j = saisie_joueur_morpion(joueur)
+        saisie_j = saisie_joueur_morpion()
         if not est_saisie_valide(saisie_j, plateau, player):  # vérification de la saisie, refait une itération si la saisie n'est pas correcte
-            action(plateau, player, joueur)
+            action(plateau, player)
         else:
             plateau[saisie_j[0]][saisie_j[1]] = "X"
 
@@ -168,7 +165,7 @@ def action(plateau: list, player: int, joueur: str) -> list:
                         saisie_j = (choice([0, 2]), choice([0, 2]))
 
         if not est_saisie_valide(saisie_j, plateau, player):  # vérifie si la saisie du maître est correcte
-            action(plateau, player, joueur)
+            action(plateau, player)
         else:  # si le maître joue une saisie correcte, on place un pion sur la grille
             plateau[saisie_j[0]][saisie_j[1]] = "O"
             print("Le maître a joué.")
@@ -204,12 +201,11 @@ def verif_win(plateau: list, player: int) -> int:
     return 0
 
 
-def tictactoe(joueur: str) -> bool:
+def tictactoe() -> bool:
     """
     Le joueur et le maître du jeu (IA) s'affrontent dans une partie classique de morpion.
     Le premier à aligner trois symboles identiques (horizontalement, verticalement, ou en
     diagonale) gagne la partie.
-    :param joueur: Le nom du joueur
     :return: True si une clé est gagnée, False sinon
     """
     plateau = [[".", ".", "."], [".", ".", "."], [".", ".", "."]]
@@ -223,7 +219,7 @@ def tictactoe(joueur: str) -> bool:
                 print("──┼───┼──")
 
         player *= -1  # changement de joueur a chaque ligne
-        plateau = action(plateau, player, joueur)  # modifie la grille en fontion de la saisie du joueur
+        plateau = action(plateau, player)  # modifie la grille en fontion de la saisie du joueur
         jeu = verif_win(plateau, player)  # vérifie si le jeux est fini et renvoie qui est le gagnant (1 pour le joueur, -1 pour le maître, 10 si c'est une égalitée
 
     # regarde qui a gagné et affiche le nom du gagnant
@@ -243,17 +239,16 @@ def tictactoe(joueur: str) -> bool:
             if i != 2:
                 print("──┼───┼──")
         print("egalité, pour déterminer le gagnant, une autre partie doit être jouée")
-        tictactoe(joueur)
+        tictactoe()
 
 
 ####################################
 ## Épreuve de la bataille navale  ##
 ####################################
 
-def saisie_joueur_bataille(joueur: str, plateau_joueur: list, player: int) -> list:
+def saisie_joueur_bataille(plateau_joueur: list, player: int) -> list:
     """
     Fonction qui demande à l'utilisateur de placer un bateau et place le bateau du joueur
-    :param joueur: le nom du joueur
     :param plateau_joueur: le plateau du joueur
     :param player: le joueur (-1 pour le joueur et 1 pour le maître)
     :return: le plateau avec le bateau placé
@@ -280,13 +275,13 @@ def saisie_joueur_bataille(joueur: str, plateau_joueur: list, player: int) -> li
             case _: long_bateau = 0
 
         if player == 0:
-            coup = saisie(joueur, i)
+            coup = saisie(i)
         else:
             coup = [randint(0, 9), randint(0, 9), choice(["droite", "gauche", "bas", "haut"])]  # choisit de manière aléatoire comment sont placés les bateaux du maître
         verif = verif_bateau(plateau_joueur, coup, long_bateau, player)  # regarde si les saisie sont possibles
         while verif == 1:  # tant que la saisie n'est pas possible, on redemande au joueur de saisir son choix...
             if player == 0:
-                coup = saisie(joueur, i)
+                coup = saisie(i)
             else:  # ...ou on relance l'aléatoire du maître si c'est le tour du maître
                 coup = [randint(0, 9), randint(0, 9), choice(["droite", "gauche", "bas", "haut"])]
             verif = verif_bateau(plateau_joueur, coup, long_bateau, player)
@@ -328,31 +323,28 @@ def afficher_plateau(plateau_joueur: list, plateau_deux: list | int) -> None:  #
         print()
 
 
-def saisie(joueur: str, i: int) -> list:
+def saisie(i: int) -> list:
     """
     Fonction qui demande la saisie de placement des bateaux au joueur et vérifie que ce sont bien les caractères demandés.
-    :param joueur: Le nom du joueur
     :param i: Le numéro du bateau
     :return: La coordonnée du joueur pour placer son bateau sous forme de liste
     """
     while True:  # vérification si le caractère est bien un caractère qui peut etre transformer en entier et qui est compris entre 1 et 10
-        coordoneeX = input(f"{joueur}, veuillez saisir la ligne dans laquelle vous voulez mettre l'arrière de votre bateau {i} : ")
+        coordoneeX = input("Veuillez saisir la ligne dans laquelle vous voulez mettre l'arrière de votre bateau {i} : ")
         if (len(coordoneeX) == 1 and '1' <= coordoneeX <= '9') or coordoneeX == "10":
             coordoneeX = int(coordoneeX) - 1
             break
         else:
             print("Merci de saisir un entier compris entre 1 et 10 inclus")
     while True:  # vérification si le caractère est bien un caractère qui peut être transformer en entier et qui est compris entre 1 et 10
-        coordoneeY = input(
-            f"{joueur} veuillez saisir la colonne dans laquelle vous voulez mettre l'arrière de votre bateau {i} : ")
+        coordoneeY = input("Veuillez saisir la colonne dans laquelle vous voulez mettre l'arrière de votre bateau {i} : ")
         if (len(coordoneeY) == 1 and '1' <= coordoneeY <= '9') or coordoneeY == "10":
             coordoneeY = int(coordoneeY) - 1
             break
         else:
             print("Merci de saisir un entier compris entre 1 et 10 inclus")
     while True:  # vérification si le joueur saisie bien une direction ("haut","bas","droite","gauche")
-        turn = input(
-            f"{joueur} veuillez saisir la direction dont vous voulez que votre bateau pointe (haut, bas, droite, gauche) : ")
+        turn = input("Veuillez saisir la direction dont vous voulez que votre bateau pointe (haut, bas, droite, gauche) : ")
         if turn in ["haut", "bas", "droite", "gauche"]:
             break
         else:
@@ -452,20 +444,19 @@ def modif_table(plateau_joueur: list, coup: list, long_bateau: int, num_bateau: 
     return plateau_joueur
 
 
-def coupplayer(plateau_joueur: list, plateau_maitre: list, plateau_des_coup: list, player: int, joueur: str, coupavant: list) -> list:
+def coupplayer(plateau_joueur: list, plateau_maitre: list, plateau_des_coup: list, player: int, coupavant: list) -> list:
     """
     Fonction qui permet de faire tirer le joueur ou le maître sur le plateau de l'adversaire et d'avoir un historique des coups déja joués par le joueur
     :param plateau_joueur: Le plateau du joueur
     :param plateau_maitre: Le plateau du maître
     :param plateau_des_coup: Le plateau qui affiche les coups déjà joués
     :param player: Le numéro du joueur (0 ou 1)
-    :param joueur: Le nom du joueur
     :param coupavant: Le coup précédent joué par le joueur
     :return: La liste des coordonnées du coup joué
     """
     if player == 1:  # si c'est au tour du joueur
         while True:  # on demande tant que la saisie n'est pas correcte de resaisir la valeur
-            coordoneeX = input(f"{joueur}, veuillez saisir la ligne dans laquelle vous voulez tirer: ")
+            coordoneeX = input("Veuillez saisir la ligne dans laquelle vous voulez tirer: ")
             if (len(coordoneeX) == 1 and '1' <= coordoneeX <= '9') or coordoneeX == "10":
                 coordoneeX = int(coordoneeX) - 1
                 break
@@ -473,7 +464,7 @@ def coupplayer(plateau_joueur: list, plateau_maitre: list, plateau_des_coup: lis
                 print("Merci de saisir un entier compris entre 1 et 10 inclus")
 
         while True:  # on demande tant que la saisie n'est pas correcte de resaisir la valeur
-            coordoneeY = input(f"{joueur} veuillez saisir la colonne dans laquelle vous voulez tirer: ")
+            coordoneeY = input("Veuillez saisir la colonne dans laquelle vous voulez tirer: ")
             if (len(coordoneeY) == 1 and '1' <= coordoneeY <= '9') or coordoneeY == "10":
                 coordoneeY = int(coordoneeY) - 1
                 break
@@ -527,7 +518,7 @@ def coupplayer(plateau_joueur: list, plateau_maitre: list, plateau_des_coup: lis
 
         else:  # si le coup a déjà été joué on redemande au joueur de saisir une case possible
             print("vous avez déjà tiré à cet endroit")
-            return coupplayer(plateau_joueur, plateau_maitre, plateau_des_coup, player, joueur, coupavant)
+            return coupplayer(plateau_joueur, plateau_maitre, plateau_des_coup, player, coupavant)
 
         return [plateau_maitre,plateau_des_coup]  # on actualise le plateau du maître et le plateau de l'historique des coups dans une seul liste pour retourner une seul variable
 
@@ -552,7 +543,7 @@ def coupplayer(plateau_joueur: list, plateau_maitre: list, plateau_des_coup: lis
         coupavant[3] = coupavant[3] + 1
         if coupavant[3] == 3:
             coupavant[2] = False
-        return coupplayer(plateau_joueur, plateau_maitre, plateau_des_coup, player, joueur, coupavant)
+        return coupplayer(plateau_joueur, plateau_maitre, plateau_des_coup, player, coupavant)
 
 
 def est_coule_bateau(plateau_joueur: list, bateau: str) -> bool:
@@ -592,19 +583,16 @@ def est_la_fin(plateau: list) -> bool:
     return verif
 
 
-def la_vraie_bataille_navale(joueur: str) -> bool:
-    """
-    fonction principale qui lance le jeu de bataille navale
-    :param joueur: le nom du joueur
-    """
+def la_vraie_bataille_navale() -> bool:
+    """ fonction principale qui lance le jeu de bataille navale """
     # initialisation des plateaux
     plateau_joueur = [["~" for _ in range(10)] for _ in range(10)]
     plateau_maitre = [["~" for _ in range(10)] for _ in range(10)]
     plateau_des_coup = [["~" for _ in range(10)] for _ in range(10)]
 
     # placement des bateaux sur les plateaux
-    plateau_joueur = saisie_joueur_bataille(joueur, plateau_joueur, 0)
-    plateau_maitre = saisie_joueur_bataille(joueur, plateau_maitre, 1)
+    plateau_joueur = saisie_joueur_bataille(plateau_joueur, 0)
+    plateau_maitre = saisie_joueur_bataille(plateau_maitre, 1)
 
     # initialisation d'une mémoire pour les coup du maître
     coupavant = [0, 0, False, 0]
@@ -616,7 +604,7 @@ def la_vraie_bataille_navale(joueur: str) -> bool:
     print(
         "┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐\n" +
         "│Instructions:                                                                                                         │\n" +
-        "│    Le joueur place cinq bateaux sur une grille et tente de deviner la position des cinq bateaux                      │\n" +
+        "│   Le joueur place cinq bateaux sur une grille et tente de deviner la position des cinq bateaux                      │\n" +
         "│   de son adversaire (le maître du jeu). Le gagnant est celui qui réussit à toucher tous les bateaux adverses.        │\n" +
         "│   Chaque joueur dispose de deux grilles : une pour la position de ses bateaux et une autre pour enregistrer ses tirs.│\n" +
         "│   Le jeu alterne les tours entre les joueurs, chacun cherchant à toucher les bateaux de l'autre.                     │\n" +
@@ -636,33 +624,32 @@ def la_vraie_bataille_navale(joueur: str) -> bool:
         if player == 1:  # si c'est au tour du joueur
             afficher_plateau(plateau_des_coup,
                              plateau_joueur)  # affiche le plateau du joueur et le plateau des endroits où le joueur à déjà tiré
-            temps = coupplayer(plateau_joueur, plateau_maitre, plateau_des_coup, player, joueur,
-                               coupavant)  # demande où le joueur souhaite tirer et vérifie que le coup soir valide
+            temps = coupplayer(plateau_joueur, plateau_maitre, plateau_des_coup, player, coupavant)  # demande où le joueur souhaite tirer et vérifie que le coup soir valide
             plateau_maitre = temps[
                 0]  # change le plateau du maître en fontion du coup du joueur vias la fonction ci-dessus
             plateau_des_coup = temps[1]  # change le plateau des coups du joueur pour savoir où le joueur a déjà tiré
 
             if est_la_fin(plateau_maitre):  # vérifie si le joueur a gagné
-                afficher_plateau(plateau_des_coup,
-                                 plateau_joueur)  # affiche le plateau pour que le joueur puisse voir qu'il a gagné
-                print(f"Vous avez gagné {joueur}!")  # affichage de victoire
+                afficher_plateau(plateau_des_coup, plateau_joueur)  # affiche le plateau pour que le joueur puisse voir qu'il a gagné
+                print(f"Vous avez gagné !")  # affichage de victoire
                 return True  # le joueur a gagné, fin du jeu
 
         else:  # si c'est au tour du maître
-            temps = coupplayer(plateau_joueur, plateau_maitre, plateau_des_coup, player, joueur,
-                               coupavant)  # fait tirer un coup au maître
+            temps = coupplayer(plateau_joueur, plateau_maitre, plateau_des_coup, player, coupavant)  # fait tirer un coup au maître
             plateau_joueur = temps[0]  # modifie le plateau du joueur en fonction du coup du maître
             coupavant = temps[1]  # stock le coup d'avant pour une meilleur adaptation du maître
 
             if est_la_fin(plateau_joueur):  # vérifie si le maître a gagné
                 afficher_plateau(plateau_des_coup,
                                  plateau_joueur)  # affiche le plateau pour que le joueur puisse voie qu'il a perdu
-                print(f"Vous avez perdu {joueur}")  # affichage de défaite
+                print(f"Vous avez perdu")  # affichage de défaite
                 return False  # le joueur a perdu, fin du jeu
 
 
-def epreuve_logique(joueur)->bool:
+def epreuve_logique()->bool:
     """ Execute une fonction aléatoire du module epreuves_logiques """
     epreuves = [jeu_nim, tictactoe, la_vraie_bataille_navale]
     epreuve = epreuves[randint(0, 1)]
-    return epreuve(joueur)
+    return epreuve()
+
+epreuve_logique()
