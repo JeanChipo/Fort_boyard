@@ -27,11 +27,13 @@ Cliquer sur le bouton \[Download ZIP]
 
 Extraire le fichier .zip téléchargé
 ![plot](./screenshots_readme/Screenshot_3.png)
+
 #### Utilisation :
 
 ![plot](./screenshots_readme/Screenshot_4.png)
 
 Pour lancer le jeu, il suffit d’exécuter le fichier main.py provenant du fichier .zip extrait
+
 ![plot](./screenshots_readme/Screenshot_5.png)
 Une fois le jeu lancé, toutes les instructions vous seront données dans l’invite de commande. Pour interagir avec le jeu il vous suffira de taper vos réponses dans l’invite de commande puis d’appuyer sur la touche \[entrée].
 
