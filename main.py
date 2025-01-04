@@ -1,15 +1,15 @@
 from fonctions_utiles import *
-
-#####################
+from epreuve_finale import salle_de_tresor
 
 def jeu():
-    introduction()
-    equipe = composer_equipe()
-    nb_cles = 0
+    introduction() # affichage des instruction
+    liste_joueurs = composer_equipe() # composition des équipes
+    cle_gagner = 0
+    while cle_gagner < 3:
+        epreuve = menu_epreuves()
+        choisir_joueur(liste_joueurs)
+        if epreuve() == True:
+            cle_gagner += 1
+    salle_de_tresor()
 
-    for i in range(len(equipe)):
-        nb_cles += equipe[i]["cles_gagnees"]
-
-    while nb_cles < 3:
-        menu_epreuves()
-        choisir_joueur(equipe)
+jeu()
