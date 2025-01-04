@@ -26,6 +26,7 @@ Cliquer sur le bouton \[Download ZIP]
 ![plot](./screenshots_readme/Screenshot_2.png)
 
 Extraire le fichier .zip téléchargé
+
 ![plot](./screenshots_readme/Screenshot_3.png)
 
 #### Utilisation :
